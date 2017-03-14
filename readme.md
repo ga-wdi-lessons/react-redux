@@ -25,9 +25,24 @@ Simply put, state is a representation of your application's data. Redux manages 
 
 
 # The Store
-The store is a kind of hub that all the information (or the **state**) in a program flows through.
+The store is a kind of hub that all the information (or the **state**) in a program flows through. **The store** encapsulates not only the data in the program, but also controls the flow of program data, storing each change in a separate state. Redux even gives us the ability to time travel through our application's history of application states. It's like the principles of git applied to application-state rather than file-state.
 
-Since state is being represented as an immutable data-structure, we cannot directly modify it. Changing state in the program requires dispatching an action.
+In it, all the principles of Redux are unified-- the application's **state object**, **the dispatcher**, and **the reducer**, which specifies how actions update the state object.
+
+Since state is being represented as an immutable data-structure, we cannot directly modify it. Changing state in the program requires dispatching an action that modifies a copy of the state, this becomes the next state of the program, spat out by the reducer.
+
+## State Methods
+
+.getState()
+`store.getState()`
+
+.dispatch({})
+`store.dispatch({ action:{ update:{ todo: completed }} })`
+
+.subscribe()
+`store.subscribe(this.render)`
+
+
 # Dispatching Actions
 
 An action is a garden-variety javascript object that describes what kind of change is to take place, specifying what change to make to what data.
@@ -37,5 +52,7 @@ The only 'expectation' that Redux has for an action is that it will have a `type
 [This serialization is important for Redux's time travel feature.](https://github.com/reactjs/redux/blob/master/docs/faq/Actions.md#actions-string-constants)
 
 # The Great Reducer
+
+The reducer specifies how actions update the state of the application, generating the next application-state.
 
 # We do: Add Redux to Todos
