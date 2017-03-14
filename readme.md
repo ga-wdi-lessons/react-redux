@@ -100,13 +100,15 @@ The reducer specifies how actions update the state of the application, generatin
 
 ## Techniques for Avoiding the Mutation of State
 
+ES6 gives us quite a few useful tools for dealing with immutable data. `Object.assign()` in particular gives us a powerful way of copying objects. This along with destructuring assignments give us a nice set of tools for immutable object handling. For Arrays, we have the good old reliable `.slice()` (first implemented in ES3) for copying arrays, and spread operators for combining arrays or parts of arrays.
+
 #### Arrays
-  - `.concat()` and `...` the spread operator ES6
+  - `.concat()` and `...` the ES6 spread operator
   - `.slice()` not `.splice()`
 
 #### Objects
-  - Object.assign({})
-  - `...` the spread operator ES6
+  - Object.assign({}, obj, {props})
+  - `...` the spread operator
   - Destructuring Assignments
 
 
