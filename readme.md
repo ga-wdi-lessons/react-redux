@@ -31,6 +31,43 @@ In it, all the principles of Redux are unified-- the application's **state objec
 
 Since state is being represented as an immutable data-structure, we cannot directly modify it. Changing state in the program requires dispatching an action that modifies a copy of the state, this becomes the next state of the program, spat out by the reducer.
 
+## Store
+
+```js
+class Store {
+  constructor(reducerFunc){
+    this.subscriptions = []
+    this.state = null
+    this.reducer = reducerFunc
+  }
+
+  getState(){
+    return this.state
+  }
+
+  dispatch(action, state){
+    switch (action.type) {
+      case "CREATE":
+        return action.newTodo //TODO: fix action handling example
+      case "UPDATE":
+        return action.editTodo //TODO: fix action handling example
+      case "DELETE":
+        return action.deleteTodo //TODO: fix action handling example
+      default:
+        return state
+    }
+
+    //calls the reducer to apply state change
+    this.reducer(action, state)
+  }
+
+  //called any time an action is dispatched
+  subscribe(subscription){
+    this.subscriptions.push(subscription)
+  }
+}
+```
+
 ## Store Methods
 
 ### `.getState()`
@@ -41,7 +78,10 @@ Since state is being represented as an immutable data-structure, we cannot direc
 `store.dispatch({ type: "ACTION_TYPE" })`
 
 ### `.subscribe()`
+
 `store.subscribe(this.render)`
+
+Every time an action has been dispatched via the reducer, we want to update the UI. So we subscribe the render method to any changes taking places to the application's state object.
 
 
 # Dispatching Actions
@@ -56,4 +96,24 @@ The only 'expectation' that Redux has for an action is that it will have a `type
 
 The reducer specifies how actions update the state of the application, generating the next application-state.
 
+# Don't Mutate State!
+
+## Techniques for Avoiding the Mutation of State
+
+#### Arrays
+  - `.concat()` and `...` the spread operator ES6
+  - `.slice()` not `.splice()`
+
+#### Objects
+  - Object.assign({})
+  - `...` the spread operator ES6
+  - Destructuring Assignments
+
+
 # We do: Add Redux to Todos
+
+## Using .getState with Component composition props
+
+Redux is managing our application's state via the store.
+
+We are going to be passing information about the application's state from the store in to a component's props.
