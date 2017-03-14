@@ -5,12 +5,12 @@
   - Explain the advantages of having a single, immutable container-object managing your application's state
   - Explain the role of the store in a React app and how it influences the architecture of a React app
   - Explain the role of the store
-  - Explain the roles of actions & dispatches
+  - Explain the roles of actions, dispatches, and the reducer
   - Explain what problem Redux Solves
 
 # What is Redux?
 
-Redux is a state management tool. It can time travel. It solves the problem of having state being stored in multiple places in a somewhat fragmented fashion.
+Redux is a state management tool. It can time travel. It solves the problem of having state being stored in multiple places in a somewhat fragmented fashion. It also gives us the ability to see and interact with the data in our programs as if it were a movie we could pause, play, rewind, and fast-forward. Incredible!
 
 # What is application state?
 
@@ -114,6 +114,6 @@ The reducer specifies how actions update the state of the application, generatin
 
 ## Using .getState with Component composition props
 
-Redux is managing our application's state via the store.
+Redux is managing our application's state via the store. Since that is the case, we're going to be obtaining the state from the store via `getState` constantly. This might seem like a pain in the neck, but in reality it gives incredible control over our app. This is what gives us the ability to see the data in our application playing like a movie that we can pause, rewind, and fast-forward.
 
 We are going to be passing information about the application's state from the store in to a component's props.
