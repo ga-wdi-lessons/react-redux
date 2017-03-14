@@ -31,15 +31,16 @@ In it, all the principles of Redux are unified-- the application's **state objec
 
 Since state is being represented as an immutable data-structure, we cannot directly modify it. Changing state in the program requires dispatching an action that modifies a copy of the state, this becomes the next state of the program, spat out by the reducer.
 
-## State Methods
+## Store Methods
 
-.getState()
+### `.getState()`
 `store.getState()`
 
-.dispatch({})
-`store.dispatch({ action:{ update:{ todo: completed }} })`
+### `.dispatch({})`
 
-.subscribe()
+`store.dispatch({ type: "ACTION_TYPE" })`
+
+### `.subscribe()`
 `store.subscribe(this.render)`
 
 
