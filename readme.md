@@ -1,4 +1,4 @@
-# React Redux
+# Intro to Redux
 
 # Learning Objectives
   - Identify how Redux leverages unidirectional data-flow and immutability
@@ -41,6 +41,12 @@ For this lesson, we're throwing caution (or a regard for our own momentary sanit
 2. Working with Redux exposes us to very elegant applications of functional programming and convey its power and potential. Functional programming presents us with the challenge of having to think in new ways about how our programs are composed and pass data.
 
 3. Its limitations force the developer to very carefully consider the structure of their application.
+
+---
+
+# Immutability in Redux
+
+When we develop with Redux, we essentially keep track of application state by funneling
 
 # Immutable State Tree
 
@@ -101,19 +107,6 @@ class Store {
 }
 ```
 
-## Store Methods (30/30+?)
-
-### `.getState()`
-`store.getState()`
-
-### `.dispatch({})`
-
-`store.dispatch({ type: "ACTION_TYPE" })`
-
-### `.subscribe()`
-
-`store.subscribe(this.render)`
-
 Every time an action has been dispatched via the reducer, we want to update the UI. So we subscribe the render method to any changes taking places to the application's state object.
 
 
@@ -136,11 +129,24 @@ The minimum requirement for an action is that the action must have a type proper
 
 The reducer specifies how actions update the state of the application, generating the next application-state.
 
+## Store Methods (30/30+?)
+
+### `.getState()`
+`store.getState()`
+
+### `.dispatch({})`
+
+`store.dispatch({ type: "ACTION_TYPE" })`
+
+### `.subscribe()`
+
+`store.subscribe(this.render)`
+
 # Don't Mutate State!
 
 ## Techniques for Avoiding the Mutation of State
 
-ES6 gives us quite a few useful tools for dealing with immutable data. `Object.assign()` in particular gives us a powerful way of copying objects. This along with destructuring assignments give us a nice set of tools for immutable object handling. For Arrays, we have the good old reliable `.slice()` (first implemented in ES3) for copying arrays, and spread operators for combining arrays or parts of arrays.
+ES6 gives us quite a few useful tools for dealing with immutable data. `Object.assign()` in particular gives us a powerful way of copying objects. This along with destructuring assignments give us a very useful set of tools for immutable object handling. For Arrays, we have the good old reliable `.slice()` (first implemented in ES3) for copying arrays, and spread operators for combining arrays or parts of arrays.
 
 <!-- TODO: Create immutability technique cheatseet! -->
 
@@ -163,8 +169,14 @@ Redux is managing our application's state via the store. Since that is the case,
 
 We are going to be passing information about the application's state from the store in to a component's props.
 
+# Adding in Redux Dev Tools
+
+[Documentation](https://github.com/zalmoxisus/redux-devtools-extension#1-with-redux)
+
 # Appendix
 
-[Immaculately curated topically-organized list of links on React, Redux, and other topics like functional programming](https://github.com/markerikson/react-redux-links)
+***[Selectively curated list of resources on React, Redux, and Functional Programming](https://github.com/markerikson/react-redux-links)***
+
+[Dummy’s Guide to Redux](https://medium.com/@stowball/a-dummys-guide-to-redux-and-thunk-in-react-d8904a7005d3#.v4pwh76z1)
 
 [Thinking 'in React': Breaking an app down into components and thinking in terms of components](https://facebook.github.io/react/docs/thinking-in-react.html)
