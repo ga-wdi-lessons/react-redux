@@ -1,15 +1,18 @@
 # Intro to Redux
 
-# Learning Objectives
+## Learning Objectives
   - Identify how Redux leverages unidirectional data-flow and immutability
   - Explain the role of the store in a React app and how it influences the architecture of a React app
   - Explain the role of the store
   - Explain the roles of actions and the reducer
   - Explain what problem Redux Solves
 
-# What is Redux? (0:05, 5 min)
+## What is Redux? (0:05, 5 min)
 
-Redux is a state management library. It solves the problem of having a bunch of localized component states by funneling them into a central hub. This really begins to become an issue for developers as applications scale, increasing in complexity and size. Redux is extremely opinionated and entails writing applications with heavy limitations.
+Redux is a state management library.
+It solves the problem of having a bunch of localized component states by funneling them into a central hub.
+This really begins to become an issue for developers as applications scale, increasing in complexity and size.
+Redux is extremely opinionated and entails writing applications with heavy limitations.
 
 The limits Redux imposes don't necessarily restrict what you write so much as how you write it.
 
@@ -17,7 +20,7 @@ With the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/de
 
 > #### *Take a moment to install the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)*
 
-# Use Case (0:15, 10min)
+## Use Case (0:15, 10min)
 
 Let's take 5 minutes to read through a blog post written by the creator of Redux, Dan Abramov.
 
@@ -29,7 +32,9 @@ Let's take 5 minutes to read through a blog post written by the creator of Redux
 - Describe **the logic for handling changes as pure functions**.
 
 
-Dan Abramov, creator of Redux and author of the blog post above. It is definitely not necessary to involve in every app. The blog post lists use cases for Redux, features that Redux provides to the application developer, and the implementation limitations that Redux imposes.
+Dan Abramov, creator of Redux and author of the blog post above.
+It is definitely not necessary to involve in every app.
+The blog post lists use cases for Redux, features that Redux provides to the application developer, and the implementation limitations that Redux imposes.
 
 >However, if you’re just learning React, don’t make Redux your first choice.
 Instead learn to [think in React](https://facebook.github.io/react/docs/thinking-in-react.html). Come back to Redux if you find a real need for it, or if you want to try something new. But approach it with caution, just like you do with any highly opinionated tool.
@@ -44,28 +49,74 @@ For this lesson, we're throwing caution (or a regard for our own momentary sanit
 
 ---
 
-# Immutability in Redux
+## Concepts of Redux
 
-When we develop with Redux, we essentially keep track of application state by funneling
+![Tokyo Ghoul Screenshot, Immutable Object Paradise](./immutable.png)
 
-# Immutable State Tree
+### Application State &  Immutability in Redux
+
+Simply put, state is a representation of your application's data. Redux manages your application's state, encapsulating the data stored in your variables, in something called **The Store**.
+When using Redux, we want to treat application state in such a way that it is always ***copied*** and never directly mutated.
+The end result of this approach is that we get a history of the application's states over the course of its usage.
+This affords a great resource for developers debugging a complex user-interface, for example.
+A developer using Redux in this way could see the exact series of user actions that produces the bug.
+
+#### Immutable State Tree
 
   - Redux encapsulates the state of an application in a single object
   - This object is called the Immutable State Tree
     - What does immutable mean? Why immutable? Why would it make sense for the tree to be read-only?
     - What is a tree? Why would state be stored in tree form?
 
-# Application state
+### Techniques for Avoiding the Mutation of State
 
-Simply put, state is a representation of your application's data. Redux manages your application's state, encapsulating the data stored in your variables, in something called **The Store**.
+<!-- TODO: Create immutability technique markdown reference and transfer this info there -->
 
-# The Store
+ES6 gives us quite a few useful tools for dealing with immutable data. `Object.assign()` in particular gives us a powerful way of copying objects. This along with destructuring assignments give us a very useful set of tools for immutable object handling. For Arrays, we have the good old reliable `.slice()` (first implemented in ES3) for copying arrays, and spread operators for combining arrays or parts of arrays.
 
-The store is a kind of hub that all the information (or the **state**) in a program flows through. **The store** encapsulates not only the data in the program, but also controls the flow of program data, storing each change in a separate state. Redux even gives us the ability to time travel through our application's history of application states. It's like the principles of git applied to application-state rather than file-state.
 
-In the store, all the principles of Redux are embodied-- the application's **state object**, **the dispatcher**, and **the reducer**, which specifies how actions update the state object.
+#### Arrays
+  - `.concat()` and `...` the ES6 spread operator
+  - `.slice()` not `.splice()`
+
+#### Objects
+  - Object.assign({}, obj, {props})
+  - `...` the spread operator
+  - Destructuring Assignments
+
+---
+
+## Elements of Redux
+
+### The Store
+
+The store is a kind of hub that all the information (**application state**) in a program flows through. **The store** encapsulates not only the data in the program, but also controls the flow of program data, storing each change in a separate state. Redux even gives us the ability to time travel through our application's history of application states. It's like the principles of git applied to application-state rather than file-state.
+
+In the store, all the principles of Redux are embodied. The store  holds an application's **states** (including current and previous states), **actions** which specify different changes to make on some part of the application state, and **the reducer**, which specifies which actions update the state object.
 
 Since state is being represented as an immutable data-structure, we cannot directly modify it. Changing state in the program requires dispatching an action that modifies a copy of the state, this becomes the next state of the program, spat out by the reducer.
+
+Every time an action has been dispatched via the reducer, we want to update the UI. So we subscribe the render method to any changes taking places to the application's state object.
+
+
+### Actions
+
+An action is a garden-variety javascript object that describes what kind of change is to take place, specifying what change to make to what data.
+
+The minimum requirement for an action is that the action must have a type property that **is not** `undefined.`
+<details>
+  <summary>
+  Unless you are using middleware, the value of `type` be a string in order for Redux's time travel features to function.
+  </summary>
+  Strings are preferred for values of the `type` property of an action since they can be [serialized](https://en.wikipedia.org/wiki/Serialization). String instances are simple, modular data that are stored in memory and recalled from memory in a straight-forward manner; this is not necessarily the case with more complex data types like objects, especially ones involving references.
+
+  [This serialization is important for Redux's time travel feature.](https://github.com/reactjs/redux/blob/master/docs/faq/Actions.md#actions-string-constants)
+</details>
+
+
+### The Great Reducer
+
+The reducer specifies how actions update the state of the application, generating the next application-state.
 
 ## A Model of the Store
 
@@ -107,29 +158,10 @@ class Store {
 }
 ```
 
-Every time an action has been dispatched via the reducer, we want to update the UI. So we subscribe the render method to any changes taking places to the application's state object.
+## We Do: Building a Counter in Redux
+ <!-- Add Link Here -->
 
-
-# Actions
-
-An action is a garden-variety javascript object that describes what kind of change is to take place, specifying what change to make to what data.
-
-The minimum requirement for an action is that the action must have a type property that **is not** `undefined.`
-<details>
-  <summary>
-  Unless you are using middleware, the value of `type` be a string in order for Redux's time travel features to function.
-  </summary>
-  Strings are preferred for values of the `type` property of an action since they can be [serialized](https://en.wikipedia.org/wiki/Serialization). String instances are simple, modular data that are stored in memory and recalled from memory in a straight-forward manner; this is not necessarily the case with more complex data types like objects, especially ones involving references.
-
-  [This serialization is important for Redux's time travel feature.](https://github.com/reactjs/redux/blob/master/docs/faq/Actions.md#actions-string-constants)
-</details>
-
-
-# The Great Reducer
-
-The reducer specifies how actions update the state of the application, generating the next application-state.
-
-## Store Methods (30/30+?)
+### Additional Store Methods (30/30+?)
 
 ### `.getState()`
 `store.getState()`
@@ -142,34 +174,22 @@ The reducer specifies how actions update the state of the application, generatin
 
 `store.subscribe(this.render)`
 
-# Don't Mutate State!
-
-## Techniques for Avoiding the Mutation of State
-
-ES6 gives us quite a few useful tools for dealing with immutable data. `Object.assign()` in particular gives us a powerful way of copying objects. This along with destructuring assignments give us a very useful set of tools for immutable object handling. For Arrays, we have the good old reliable `.slice()` (first implemented in ES3) for copying arrays, and spread operators for combining arrays or parts of arrays.
-
-<!-- TODO: Create immutability technique cheatseet! -->
-
-### Arrays
-  - `.concat()` and `...` the ES6 spread operator
-  - `.slice()` not `.splice()`
-
-### Objects
-  - Object.assign({}, obj, {props})
-  - `...` the spread operator
-  - Destructuring Assignments
-
-<!-- TODO: Create todos app -->
-
-# We do: Add Redux to Todos
 
 ## Using .getState with Component composition props
 
-Redux is managing our application's state via the store. Since that is the case, we're going to be obtaining the state from the store via `getState` constantly. This might seem like a pain in the neck, but in reality it gives incredible control over our app. This is what gives us the ability to see the data in our application playing like a movie that we can pause, rewind, and fast-forward.
+Redux is managing our application's state via the store.
+Since that is the case, we're going to be obtaining the state from the store via `getState` constantly.
+This might seem like a pain in the neck, but in reality it gives incredible control over our app.
+This is what gives us the ability to see the data in our application playing like a movie that we can pause, rewind, and fast-forward.
 
 We are going to be passing information about the application's state from the store in to a component's props.
 
-# Adding in Redux Dev Tools
+
+## We Do: Shopping Cart in Redux (45 min)
+
+[Navigate Here](https://github.com/ga-wdi-exercises/react-redux-shopping-cart)
+
+### Adding in Redux Dev Tools
 
 [Documentation](https://github.com/zalmoxisus/redux-devtools-extension#1-with-redux)
 
