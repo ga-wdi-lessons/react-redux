@@ -43,11 +43,31 @@ For this lesson, we're throwing caution (or a regard for our own momentary sanit
 
 1. It is being increasingly adopted by React developers, especially teams working on very large applications.
 
-2. Working with Redux exposes us to very elegant applications of functional programming and convey its power and potential. Functional programming presents us with the challenge of having to think in new ways about how our programs are composed and pass data.
+2. Working with Redux exposes us to very elegant applications of functional programming and convey its power and potential.
+Functional programming presents us with the challenge of having to think in new ways about how our programs are composed and pass data.
 
 3. Its limitations force the developer to very carefully consider the structure of their application.
 
 ---
+
+## Functional Programming and the React Ecosystem
+
+You may hear developers talking about how functional programming is revolutionizing Javascript and wonder how this is so.
+Let's revisit the concept of a pure function: given any input, a ***pure function*** will return the exact same output.
+It will also ***have no side effects***.
+This means that the **pure function** is *only concerned* with returning some output that is a function of its input.
+
+Impure functions include:
+  - `Math.random()`
+  - `$.ajax()`
+
+Part of the power of React is this very idea applied to views. We pass in props a component, and we get the same predictable component every time.
+
+In short, applying concepts of functional programming to a front-end library ensure ***a high degree of predictability***. 
+It also creates a modular architecture that allows a library like Redux to intervene in how React manages state.
+
+Redux will use functional programming's approach to function composition: reusing certain functions in the construction of other functions.
+Ultimately, these aggregated functions will provide the functionality of Redux.
 
 ## Concepts of Redux
 
@@ -158,40 +178,26 @@ class Store {
 }
 ```
 
-## We Do: Building a Counter in Redux
- <!-- Add Link Here -->
+### Additional Store Methods
 
-### Additional Store Methods (30/30+?)
+0. `.getState()`
+  - `store.getState()`
 
-### `.getState()`
-`store.getState()`
+0. `.dispatch({})`  
+  - `store.dispatch({ type: "ACTION_TYPE" })`
 
-### `.dispatch({})`
+0. `.subscribe()`
+  - `store.subscribe(this.render)`
 
-`store.dispatch({ type: "ACTION_TYPE" })`
+## We Do: Building a Counter in Redux (30 min)
 
-### `.subscribe()`
-
-`store.subscribe(this.render)`
-
-
-## Using .getState with Component composition props
-
-Redux is managing our application's state via the store.
-Since that is the case, we're going to be obtaining the state from the store via `getState` constantly.
-This might seem like a pain in the neck, but in reality it gives incredible control over our app.
-This is what gives us the ability to see the data in our application playing like a movie that we can pause, rewind, and fast-forward.
-
-We are going to be passing information about the application's state from the store in to a component's props.
+[Building a Counter in Redux](https://github.com/ga-wdi-exercises/react-redux-counter)
 
 
 ## We Do: Shopping Cart in Redux (45 min)
 
 [Navigate Here](https://github.com/ga-wdi-exercises/react-redux-shopping-cart)
 
-### Adding in Redux Dev Tools
-
-[Documentation](https://github.com/zalmoxisus/redux-devtools-extension#1-with-redux)
 
 # Appendix
 
@@ -200,3 +206,13 @@ We are going to be passing information about the application's state from the st
 [Dummy’s Guide to Redux](https://medium.com/@stowball/a-dummys-guide-to-redux-and-thunk-in-react-d8904a7005d3#.v4pwh76z1)
 
 [Thinking 'in React': Breaking an app down into components and thinking in terms of components](https://facebook.github.io/react/docs/thinking-in-react.html)
+
+[Redux Docs: Usage with React](http://redux.js.org/docs/basics/UsageWithReact.html)
+
+[React Docs: Components and Props](https://facebook.github.io/react/docs/components-and-props.html)
+  - Determining if your component should be defined by a function or a class
+
+[React Docs: State and Lifecycle](https://facebook.github.io/react/docs/state-and-lifecycle.html)
+  - Guidelines for class components (stateful components)
+
+[react-redux API](https://github.com/reactjs/react-redux/blob/master/docs/api.md)
