@@ -63,7 +63,7 @@ Impure functions include:
 
 Part of the power of React is this very idea applied to views. We pass in props a component, and we get the same predictable component every time.
 
-In short, applying concepts of functional programming to a front-end library ensure ***a high degree of predictability***. 
+In short, applying concepts of functional programming to a front-end library ensure ***a high degree of predictability***.
 It also creates a modular architecture that allows a library like Redux to intervene in how React manages state.
 
 Redux will use functional programming's approach to function composition: reusing certain functions in the construction of other functions.
@@ -92,17 +92,62 @@ A developer using Redux in this way could see the exact series of user actions t
 
 <!-- TODO: Create immutability technique markdown reference and transfer this info there -->
 
-ES6 gives us quite a few useful tools for dealing with immutable data. `Object.assign()` in particular gives us a powerful way of copying objects. This along with destructuring assignments give us a very useful set of tools for immutable object handling. For Arrays, we have the good old reliable `.slice()` (first implemented in ES3) for copying arrays, and spread operators for combining arrays or parts of arrays.
+ES6 has a couple nice features that make dealing with immutable data easier: `Object.assign()` and the spread operator `...`.
+
+`Object.assign()` in particular gives us a powerful way of copying objects.
+
+> Example:
+```js
+let cat = {
+  name: "Meowy Mandel",
+  meowy: true
+}
+let copiedCat = Object.assign({}, cat)
+```
+
+`...` or the spread operator gives us a nice way of combining arrays.
+It exposes or "unwraps" the values in an array.
+
+```js
+let fruits = ["Tomato", "Cucumber", "Pumpkin"]
+let updatedFruits = [...fruits, "Avocado"]
+```
+
+The above code is equivalent to this:
+
+```js
+let fruits = ["Tomato", "Cucumber", "Pumpkin"]
+let updatedFruits = fruits.concat("Avocado")
+```
+
+For arrays of primitives, we have the good, old reliable `.slice()` (first implemented in ES3) for copying array. and spread operators for combining arrays or parts of arrays.
+
+For arrays of objects, you can use `map()` in concert with `Object.assign()`
+
+> Example:
+```js
+let todos = [
+    {todo: "learn to thrash"},
+    {todo: "learn redux"},
+    {todo: "hang tight"},
+    {todo: "stay loose"}
+]
+let todosCopy = todos.map(obj => Object.assign({},obj))
+```
 
 
-#### Arrays
-  - `.concat()` and `...` the ES6 spread operator
-  - `.slice()` not `.splice()`
+##### Remember, `.slice()` not `.splice()`!
 
-#### Objects
-  - Object.assign({}, obj, {props})
-  - `...` the spread operator
-  - Destructuring Assignments
+
+[Splice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
+[Slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+
+It's an easy mistake to make, since there is a one letter difference.
+
+`.splice()` ***is a mutator method***, meaning it modifies whatever it is called on.
+
+`.slice()` ***is not a mutator method***. Use it for ***copying*** all or part of an array!
+
 
 ---
 
@@ -196,7 +241,7 @@ class Store {
 
 ## We Do: Shopping Cart in Redux (45 min)
 
-[Navigate Here](https://github.com/ga-wdi-exercises/react-redux-shopping-cart)
+[Building a Shopping Cart in Redux](https://github.com/ga-wdi-exercises/react-redux-shopping-cart)
 
 
 # Appendix
