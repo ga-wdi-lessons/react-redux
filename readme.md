@@ -18,9 +18,9 @@ The limits Redux imposes don't necessarily restrict what you write so much as ho
 
 With the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en), we have the ability to see and interact with the data in our programs as if it were a movie we could pause, play, rewind, and fast-forward.
 
-> #### *Take a moment to install the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)*
+> **Take a moment to install the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)**
 
-## Use Case (0:15, 10min)
+## Use Case (0:15, 10 min)
 
 Let's take 5 minutes to read through a blog post written by the creator of Redux, Dan Abramov.
 
@@ -32,7 +32,7 @@ Let's take 5 minutes to read through a blog post written by the creator of Redux
 - Describe **the logic for handling changes as pure functions**.
 
 
-Dan Abramov, creator of Redux and author of the blog post above.
+Dan Abramov, creator of Redux and author of the blog post above. <!-- AM: Is this supposed to be a sentence or attributing the quote above? -->
 It is definitely not necessary to involve in every app.
 The blog post lists use cases for Redux, features that Redux provides to the application developer, and the implementation limitations that Redux imposes.
 
@@ -50,13 +50,14 @@ Functional programming presents us with the challenge of having to think in new 
 
 ---
 
-## Functional Programming and the React Ecosystem
+## Functional Programming and the React Ecosystem <!-- AM: Looks like you're missing timing for the rest of the lesson. -->
 
 You may hear developers talking about how functional programming is revolutionizing Javascript and wonder how this is so.
 Let's revisit the concept of a pure function: given any input, a ***pure function*** will return the exact same output.
 It will also ***have no side effects***.
 This means that the **pure function** is *only concerned* with returning some output that is a function of its input.
 
+<!-- AM: Ask students to explain why these are impure. Optional: you could add an example that does include an input to throw them off. -->
 Impure functions include:
   - `Math.random()`
   - `$.ajax()`
@@ -73,7 +74,7 @@ Ultimately, these aggregated functions will provide the functionality of Redux.
 
 ![Tokyo Ghoul Screenshot, Immutable Object Paradise](./immutable.png)
 
-### Application State &  Immutability in Redux
+### Application State & Immutability in Redux
 
 Simply put, state is a representation of your application's data. Redux manages your application's state, encapsulating the data stored in your variables, in something called **The Store**.
 When using Redux, we want to treat application state in such a way that it is always ***copied*** and never directly mutated.
@@ -83,18 +84,18 @@ A developer using Redux in this way could see the exact series of user actions t
 
 #### Immutable State Tree
 
-  - Redux encapsulates the state of an application in a single object
-  - This object is called the Immutable State Tree
-    - What does immutable mean? Why immutable? Why would it make sense for the tree to be read-only?
-    - What is a tree? Why would state be stored in tree form?
+Redux encapsulates the state of an application in a single object. This object is called the **Immutable State Tree**.
+- What does immutable mean? Why immutable? Why would it make sense for the tree to be read-only?
+- What is a tree? Why would state be stored in tree form?
 
 ### Techniques for Avoiding the Mutation of State
 
+<!-- AM: Not sure if this "TODO" is something you are trying to do before lesson delivery. -->
 <!-- TODO: Create immutability technique markdown reference and transfer this info there -->
 
 ES6 has a couple nice features that make dealing with immutable data easier: `Object.assign()` and the spread operator `...`.
 
-`Object.assign()` in particular gives us a powerful way of copying objects.
+`Object.assign()` gives us a powerful way of copying objects.
 
 > Example:
 ```js
@@ -119,8 +120,9 @@ The above code is equivalent to this:
 let fruits = ["Tomato", "Cucumber", "Pumpkin"]
 let updatedFruits = fruits.concat("Avocado")
 ```
+<!-- AM: Keep in mind, they might not know what .concat does (although they should be able to figure it out) -->
 
-For arrays of primitives, we have the good, old reliable `.slice()` (first implemented in ES3) for copying array. and spread operators for combining arrays or parts of arrays.
+For copying arrays of primitives, we have the good, old reliable `.slice()` (first implemented in ES3). For combining arrays or parts of array, we can use the spread operator.
 
 For arrays of objects, you can use `map()` in concert with `Object.assign()`
 
@@ -135,9 +137,7 @@ let todos = [
 let todosCopy = todos.map(obj => Object.assign({},obj))
 ```
 
-
-##### Remember, `.slice()` not `.splice()`!
-
+#### Remember, `.slice()` not `.splice()`!
 
 [Splice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
 [Slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
@@ -148,7 +148,6 @@ It's an easy mistake to make, since there is a one letter difference.
 
 `.slice()` ***is not a mutator method***. Use it for ***copying*** all or part of an array!
 
-
 ---
 
 ## Elements of Redux
@@ -157,22 +156,24 @@ It's an easy mistake to make, since there is a one letter difference.
 
 The store is a kind of hub that all the information (**application state**) in a program flows through. **The store** encapsulates not only the data in the program, but also controls the flow of program data, storing each change in a separate state. Redux even gives us the ability to time travel through our application's history of application states. It's like the principles of git applied to application-state rather than file-state.
 
-In the store, all the principles of Redux are embodied. The store  holds an application's **states** (including current and previous states), **actions** which specify different changes to make on some part of the application state, and **the reducer**, which specifies which actions update the state object.
+All the principles of Redux are embodied in the store. The store holds an application's **states** (including current and previous states), **actions** which specify different changes to make on some part of the application state, and **the reducer**, which specifies which actions update the state object.
 
-Since state is being represented as an immutable data-structure, we cannot directly modify it. Changing state in the program requires dispatching an action that modifies a copy of the state, this becomes the next state of the program, spat out by the reducer.
+Since state is being represented as an immutable data-structure, we cannot directly modify it. Changing state in the program requires dispatching an action that modifies a copy of the state. This becomes the next state of the program, spat out by the reducer.
 
 Every time an action has been dispatched via the reducer, we want to update the UI. So we subscribe the render method to any changes taking places to the application's state object.
 
-
 ### Actions
 
-An action is a garden-variety javascript object that describes what kind of change is to take place, specifying what change to make to what data.
+An action is a garden-variety Javascript object that describes what kind of change is to take place, specifying what change to make to what data.
 
 The minimum requirement for an action is that the action must have a type property that **is not** `undefined.`
+
+<!-- AM: Why is this details-summary? -->
 <details>
-  <summary>
-  Unless you are using middleware, the value of `type` be a string in order for Redux's time travel features to function.
-  </summary>
+  <summary><strong>
+  Unless you are using middleware, the value of `type` should be a string in order for Redux's time travel features to function.
+  </strong></summary>
+
   Strings are preferred for values of the `type` property of an action since they can be [serialized](https://en.wikipedia.org/wiki/Serialization). String instances are simple, modular data that are stored in memory and recalled from memory in a straight-forward manner; this is not necessarily the case with more complex data types like objects, especially ones involving references.
 
   [This serialization is important for Redux's time travel feature.](https://github.com/reactjs/redux/blob/master/docs/faq/Actions.md#actions-string-constants)
@@ -196,9 +197,9 @@ class Store {
     return this.state
   }
 
-  //the ONE FUNCTION that handle any and all updates to our application-state
+  // the ONE FUNCTION that handle any and all updates to our application-state
   reducer(action, state){
-    //decides what type of state change
+    // decides what type of state change
     switch (action.type) {
       case 'ADD_TODO':
         return {
