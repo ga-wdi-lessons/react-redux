@@ -18,9 +18,9 @@ The limits Redux imposes don't necessarily restrict what you write so much as ho
 
 With the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en), we have the ability to see and interact with the data in our programs as if it were a movie we could pause, play, rewind, and fast-forward.
 
-> #### *Take a moment to install the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)*
+**Take a moment to install the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)**
 
-## Use Case (0:15, 10min)
+## Use Case (0:15, 10 min)
 
 Let's take 5 minutes to read through a blog post written by the creator of Redux, Dan Abramov.
 
@@ -32,7 +32,6 @@ Let's take 5 minutes to read through a blog post written by the creator of Redux
 - Describe **the logic for handling changes as pure functions**.
 
 
-Dan Abramov, creator of Redux and author of the blog post above.
 It is definitely not necessary to involve in every app.
 The blog post lists use cases for Redux, features that Redux provides to the application developer, and the implementation limitations that Redux imposes.
 
@@ -50,7 +49,7 @@ Functional programming presents us with the challenge of having to think in new 
 
 ---
 
-## Functional Programming and the React Ecosystem
+## Functional Programming and the React Ecosystem (0:25, 10 min)
 
 You may hear developers talking about how functional programming is revolutionizing Javascript and wonder how this is so.
 Let's revisit the concept of a pure function: given any input, a ***pure function*** will return the exact same output.
@@ -73,7 +72,7 @@ Ultimately, these aggregated functions will provide the functionality of Redux.
 
 ![Tokyo Ghoul Screenshot, Immutable Object Paradise](./immutable.png)
 
-### Application State &  Immutability in Redux
+### Application State &  Immutability in Redux (0:40, 15 min)
 
 Simply put, state is a representation of your application's data. Redux manages your application's state, encapsulating the data stored in your variables, in something called **The Store**.
 When using Redux, we want to treat application state in such a way that it is always ***copied*** and never directly mutated.
@@ -151,22 +150,24 @@ It's an easy mistake to make, since there is a one letter difference.
 
 ---
 
-## Elements of Redux
+## Elements of Redux (1:00, 20 min)
 
 ### The Store
 
 The store is a kind of hub that all the information (**application state**) in a program flows through. **The store** encapsulates not only the data in the program, but also controls the flow of program data, storing each change in a separate state. Redux even gives us the ability to time travel through our application's history of application states. It's like the principles of git applied to application-state rather than file-state.
 
-In the store, all the principles of Redux are embodied. The store  holds an application's **states** (including current and previous states), **actions** which specify different changes to make on some part of the application state, and **the reducer**, which specifies which actions update the state object.
+All the principles of Redux are embodied in the store. The store  holds an application's **states** (including current and previous states), **actions** which specify different changes to make on some part of the application state, and **the reducer**, which specifies which actions update the state object.
 
-Since state is being represented as an immutable data-structure, we cannot directly modify it. Changing state in the program requires dispatching an action that modifies a copy of the state, this becomes the next state of the program, spat out by the reducer.
+Since state is being represented as an immutable data-structure, we cannot directly modify it.
+Changing state in the program requires dispatching an action that modifies a copy of the state.
+This becomes the next state of the program, spat out by the reducer.
 
 Every time an action has been dispatched via the reducer, we want to update the UI. So we subscribe the render method to any changes taking places to the application's state object.
 
 
 ### Actions
 
-An action is a garden-variety javascript object that describes what kind of change is to take place, specifying what change to make to what data.
+An action is a garden-variety Javascript object that describes what kind of change is to take place, specifying what change to make to what data.
 
 The minimum requirement for an action is that the action must have a type property that **is not** `undefined.`
 <details>
@@ -179,11 +180,13 @@ The minimum requirement for an action is that the action must have a type proper
 </details>
 
 
-### The Great Reducer
+### The Reducer
 
 The reducer specifies how actions update the state of the application, generating the next application-state.
 
 ## A Model of the Store
+
+This is an approximation of a store.
 
 ```js
 class Store {
@@ -196,9 +199,9 @@ class Store {
     return this.state
   }
 
-  //the ONE FUNCTION that handle any and all updates to our application-state
+  // the ONE FUNCTION that handle any and all updates to our application-state
   reducer(action, state){
-    //decides what type of state change
+    // decides what type of state change
     switch (action.type) {
       case 'ADD_TODO':
         return {
@@ -208,7 +211,7 @@ class Store {
         }
       case  "TOGGLE_TODO_COMPLETED":
         return {
-          ...state,
+          ...state, //object spread operator
           completed: !state.completed
         }
       default:
@@ -226,12 +229,15 @@ class Store {
 ### Additional Store Methods
 
 0. `.getState()`
+
   - `store.getState()`
 
 0. `.dispatch({})`  
+
   - `store.dispatch({ type: "ACTION_TYPE" })`
 
 0. `.subscribe()`
+
   - `store.subscribe(this.render)`
 
 ## We Do: Building a Counter in Redux (30 min)
