@@ -3,7 +3,6 @@
 ## Learning Objectives
   - Identify how Redux leverages unidirectional data-flow and immutability
   - Explain the role of the store in a React app and how it influences the architecture of a React app
-  - Explain the role of the store
   - Explain the roles of actions and the reducer
   - Explain what problem Redux Solves
 
