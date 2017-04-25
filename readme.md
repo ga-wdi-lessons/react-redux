@@ -6,7 +6,7 @@
   - Explain the roles of actions and the reducer
   - Explain what problem Redux Solves
 
-## What is Redux? (0:05, 5 min)
+# What is Redux? (0:05, 5 min)
 
 Redux is a state management library.
 It solves the problem of having a bunch of localized component states by funneling them into a central hub.
@@ -19,7 +19,7 @@ With the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/de
 
 **Take a moment to install the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)**
 
-## Use Case (0:15, 10 min)
+# Use Case (0:15, 10 min)
 
 Let's take 5 minutes to read through a blog post written by the creator of Redux, Dan Abramov.
 
@@ -34,7 +34,7 @@ Let's take 5 minutes to read through a blog post written by the creator of Redux
 It is definitely not necessary to involve in every app.
 The blog post lists use cases for Redux, features that Redux provides to the application developer, and the implementation limitations that Redux imposes.
 
->However, if you’re just learning React, don’t make Redux your first choice.
+> However, if you’re just learning React, don’t make Redux your first choice.
 Instead learn to [think in React](https://facebook.github.io/react/docs/thinking-in-react.html). Come back to Redux if you find a real need for it, or if you want to try something new. But approach it with caution, just like you do with any highly opinionated tool.
 
 For this lesson, we're throwing caution (or a regard for our own momentary sanity) to the wind. There is a formidable learning curve with Redux, but the exposure is valuable for a few reasons:
@@ -48,7 +48,7 @@ Functional programming presents us with the challenge of having to think in new 
 
 ---
 
-## Functional Programming and the React Ecosystem (0:25, 10 min)
+# Functional Programming and the React Ecosystem (0:25, 10 min)
 
 You may hear developers talking about how functional programming is revolutionizing Javascript and wonder how this is so.
 Let's revisit the concept of a pure function: given any input, a ***pure function*** will return the exact same output.
@@ -67,11 +67,11 @@ It also creates a modular architecture that allows a library like Redux to inter
 Redux will use functional programming's approach to function composition: reusing certain functions in the construction of other functions.
 Ultimately, these aggregated functions will provide the functionality of Redux.
 
-## Concepts of Redux
+# Concepts of Redux
 
 ![Tokyo Ghoul Screenshot, Immutable Object Paradise](./immutable.png)
 
-### Application State &  Immutability in Redux (0:40, 15 min)
+## Application State &  Immutability in Redux (0:40, 15 min)
 
 Simply put, state is a representation of your application's data. Redux manages your application's state, encapsulating the data stored in your variables, in something called **The Store**.
 When using Redux, we want to treat application state in such a way that it is always ***copied*** and never directly mutated.
@@ -79,12 +79,6 @@ The end result of this approach is that we get a history of the application's st
 This affords a great resource for developers debugging a complex user-interface, for example.
 A developer using Redux in this way could see the exact series of user actions that produces the bug.
 
-#### Immutable State Tree
-
-  - Redux encapsulates the state of an application in a single object
-  - This object is called the Immutable State Tree
-    - What does immutable mean? Why immutable? Why would it make sense for the tree to be read-only?
-    - What is a tree? Why would state be stored in tree form?
 
 ### Techniques for Avoiding the Mutation of State
 
@@ -149,9 +143,9 @@ It's an easy mistake to make, since there is a one letter difference.
 
 ---
 
-## Elements of Redux (1:00, 20 min)
+# Elements of Redux (1:00, 20 min)
 
-### The Store
+## The Store
 
 The store is a kind of hub that all the information (**application state**) in a program flows through. **The store** encapsulates not only the data in the program, but also controls the flow of program data, storing each change in a separate state. Redux even gives us the ability to time travel through our application's history of application states. It's like the principles of git applied to application-state rather than file-state.
 
@@ -164,7 +158,7 @@ This becomes the next state of the program, spat out by the reducer.
 Every time an action has been dispatched via the reducer, we want to update the UI. So we subscribe the render method to any changes taking places to the application's state object.
 
 
-### Actions
+## Actions
 
 An action is a garden-variety Javascript object that describes what kind of change is to take place, specifying what change to make to what data.
 
@@ -179,11 +173,11 @@ The minimum requirement for an action is that the action must have a type proper
 </details>
 
 
-### The Reducer
+## The Reducer
 
 The reducer specifies how actions update the state of the application, generating the next application-state.
 
-## A Model of the Store
+# A Model of the Store
 
 This is an approximation of a store.
 
@@ -225,7 +219,7 @@ class Store {
 }
 ```
 
-### Additional Store Methods
+## Additional Store Methods
 
 0. `.getState()`
 
@@ -239,12 +233,12 @@ class Store {
 
   - `store.subscribe(this.render)`
 
-## We Do: Building a Counter in Redux (30 min)
+# We Do: Building a Counter in Redux (30 min)
 
 [Building a Counter in Redux](https://github.com/ga-wdi-exercises/react-redux-counter)
 
 
-## We Do: Shopping Cart in Redux (45 min)
+# We Do: Shopping Cart in Redux (45 min)
 
 [Building a Shopping Cart in Redux](https://github.com/ga-wdi-exercises/react-redux-shopping-cart)
 
