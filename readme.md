@@ -55,11 +55,7 @@ Let's revisit the concept of a pure function: given any input, a ***pure functio
 It will also ***have no side effects***.
 This means that the **pure function** is *only concerned* with returning some output that is a function of its input.
 
-Impure functions include:
-  - `Math.random()`
-  - `$.ajax()`
-
-Part of the power of React is this very idea applied to views. We pass in props a component, and we get the same predictable component every time.
+Part of the power of React is this very idea applied to views. We pass in props to a component, and we get the same predictable component every time.
 
 In short, applying concepts of functional programming to a front-end library ensure ***a high degree of predictability***.
 It also creates a modular architecture that allows a library like Redux to intervene in how React manages state.
@@ -68,8 +64,6 @@ Redux will use functional programming's approach to function composition: reusin
 Ultimately, these aggregated functions will provide the functionality of Redux.
 
 # Concepts of Redux
-
-![Tokyo Ghoul Screenshot, Immutable Object Paradise](./immutable.png)
 
 ## Application State &  Immutability in Redux (0:40, 15 min)
 
@@ -103,6 +97,7 @@ It exposes or "unwraps" the values in an array.
 ```js
 let fruits = ["Tomato", "Cucumber", "Pumpkin"]
 let updatedFruits = [...fruits, "Avocado"]
+// => ["Tomato", "Cucumber", "Pumpkin", "Avocado"]
 ```
 
 The above code is equivalent to this:
@@ -110,13 +105,24 @@ The above code is equivalent to this:
 ```js
 let fruits = ["Tomato", "Cucumber", "Pumpkin"]
 let updatedFruits = fruits.concat("Avocado")
+// => ["Tomato", "Cucumber", "Pumpkin", "Avocado"]
 ```
 
-For arrays of primitives, we have the good, old reliable `.slice()` (first implemented in ES3) for copying array. and spread operators for combining arrays or parts of arrays.
+For arrays of primitives, we have the good, old reliable `.slice()` (first implemented in ES3) for copying arrays (either in whole or part).
+
+```js
+let fruits = ["Tomato", "Cucumber", "Pumpkin"]
+let copiedFruits = fruits.slice()
+// => ["Tomato", "Cucumber", "Pumpkin"]
+let firstTwoFruits = fruits.slice(0, 2)
+// => ["Tomato", "Cucumber"]
+```
+
 
 For arrays of objects, you can use `map()` in concert with `Object.assign()`
 
 > Example:
+
 ```js
 let todos = [
     {todo: "learn to thrash"},
@@ -124,7 +130,9 @@ let todos = [
     {todo: "hang tight"},
     {todo: "stay loose"}
 ]
-let todosCopy = todos.map(obj => Object.assign({},obj))
+let todosCopy = todos.map((obj) => {
+  return Object.assign({},obj)
+})
 ```
 
 
@@ -165,9 +173,10 @@ An action is a garden-variety Javascript object that describes what kind of chan
 The minimum requirement for an action is that the action must have a type property that **is not** `undefined.`
 <details>
   <summary>
-  Unless you are using middleware, the value of `type` be a string in order for Redux's time travel features to function.
+  Unless you are using middleware, the value of `type` must be a string in order for Redux's time travel features to function.
   </summary>
-  Strings are preferred for values of the `type` property of an action since they can be [serialized](https://en.wikipedia.org/wiki/Serialization). String instances are simple, modular data that are stored in memory and recalled from memory in a straight-forward manner; this is not necessarily the case with more complex data types like objects, especially ones involving references.
+
+  >Strings are preferred for values of the `type` property of an action since they can be [serialized](https://en.wikipedia.org/wiki/Serialization). String instances are simple, modular data that are stored in memory and recalled from memory in a straight-forward manner; this is not necessarily the case with more complex data types like objects, especially ones involving references.
 
   [This serialization is important for Redux's time travel feature.](https://github.com/reactjs/redux/blob/master/docs/faq/Actions.md#actions-string-constants)
 </details>
@@ -193,20 +202,26 @@ class Store {
   }
 
   // the ONE FUNCTION that handle any and all updates to our application-state
-  reducer(action, state){
+  reducer(action, state = []){
     // decides what type of state change
     switch (action.type) {
       case 'ADD_TODO':
-        return {
-          id: action.id,
-          text: action.text,
-          completed: false
-        }
-      case  "TOGGLE_TODO_COMPLETED":
-        return {
-          ...state, //object spread operator
-          completed: !state.completed
-        }
+        return [
+          ...state,
+          {
+            id: action.id,
+            text: action.text,
+            completed: false
+          }
+        ]
+      case 'TOGGLE_TODO':
+        return state.map((todo) => {
+          if (todo.id === action.id) {
+            return {...todo, completed: !todo.completed}
+          } else {
+            return todo
+          }
+        })
       default:
         return state
     }
@@ -221,26 +236,27 @@ class Store {
 
 ## Additional Store Methods
 
-0. `.getState()`
+#### getState()
 
-  - `store.getState()`
+Returns the current state of the application tracked in the store
+> `store.getState()`
 
-0. `.dispatch({})`  
+#### dispatch({})  
+Sends an action to the store's reducer to be evaluated and applied to state
+> `store.dispatch({ type: "ACTION_TYPE" })`
 
-  - `store.dispatch({ type: "ACTION_TYPE" })`
-
-0. `.subscribe()`
-
-  - `store.subscribe(this.render)`
+#### subscribe()
+Attaches methods to the store to be called anytime the state tracked in the store changes
+> `store.subscribe(this.render)`
 
 # We Do: Building a Counter in Redux (30 min)
 
 [Building a Counter in Redux](https://github.com/ga-wdi-exercises/react-redux-counter)
 
 
-# We Do: Shopping Cart in Redux (45 min)
+<!-- # We Do: Shopping Cart in Redux (45 min)
 
-[Building a Shopping Cart in Redux](https://github.com/ga-wdi-exercises/react-redux-shopping-cart)
+[Building a Shopping Cart in Redux](https://github.com/ga-wdi-exercises/react-redux-shopping-cart) -->
 
 
 # Appendix
