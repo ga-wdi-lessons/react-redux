@@ -202,7 +202,7 @@ class Store {
   }
 
   // the ONE FUNCTION that handle any and all updates to our application-state
-  reducer(action, state = []){
+  reducer(state = [], action){
     // decides what type of state change
     switch (action.type) {
       case 'ADD_TODO':
