@@ -1,21 +1,25 @@
 # Intro to Redux
 
 ## Learning Objectives
-  - Identify how Redux leverages unidirectional data-flow and immutability
-  - Explain the role of the store in a React app and how it influences the architecture of a React app
-  - Explain the roles of actions and the reducer
-  - Explain what problem Redux Solves
+  - Use React-Redux to centralize and manage application-state
+  - Explain the importance of unidirectional data-flow and immutability for Redux's event history
+  - Explain the role of the store
+  - Explain the roles of actions and the reducer, how this influences the architecture of a React app
+  - Describe application-state in terms of plain JavaScript objects `{}`
 
 # What is Redux? (0:05, 5 min)
 
-Redux is a state management library.
-It solves the problem of having a bunch of localized component states by funneling them into a central hub.
-This really begins to become an issue for developers as applications scale, increasing in complexity and size.
-Redux is extremely opinionated and entails writing applications with heavy limitations.
+We've begun to think in React, breaking down a UI into components. We've also been introduced to the idea of different types of components--often, components will have `state`, though not all components will.
 
-The limits Redux imposes don't necessarily restrict what you write so much as how you write it.
+However, if we had a lot of stateful components, we can easily imagine the stress of having to be aware of the state of say even a dozen components. This really begins to become an issue particularly for teams of developers, as their applications scale, or increase in complexity and size.
 
-With the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en), we have the ability to see and interact with the data in our programs as if it were a movie we could pause, play, rewind, and fast-forward.
+Each component could potentially have its own state, creating a stressful scenario where we might be tempted to litter our applications with `console.log()` statements. This approach does not scale very well, is cumbersome, gives us limited insight into our applications, and creates a lot of noise in the browser console. Using `console.log()` has its place but Redux offers us a much better solution to the problem of having fragmented or decentralized application-state.
+
+Redux solves this problem by centralizing and managing state. It does so by funneling component states into a central hub.
+
+It's essentially a state management library that can be used in pretty much any JavaScript front-end views library or framework. Redux is extremely opinionated and entails writing applications with significant limitations. These limits imposed by Redux don't restrict what you write, so much as *how* you write it.
+
+There is also an extremely useful [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en), which gives us the ability to see and interact with the data in our programs as if it were a movie we could pause, play, rewind, and fast-forward.
 
 **Take a moment to install the [Redux Devtools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)**
 
@@ -26,12 +30,12 @@ Let's take 5 minutes to read through a blog post written by the creator of Redux
  From [***You Might Not Need Redux***](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367#.47e1bpmhj):
 
 > Redux offers a tradeoff. It asks you to:
-- Describe **application state as plain objects and arrays**.
-- Describe **changes** in the system as **plain objects**.
-- Describe **the logic for handling changes as pure functions**.
+  - Describe **application state as plain objects and arrays**.
+  - Describe **changes** in the system as **plain objects**.
+  - Describe **the logic for handling changes as pure functions**.
 
+It is definitely not necessary to involve in every app, especially when still learning React. The purpose of today's lesson is not to impress upon you that must and should use Redux to build your React application, but to show how Redux works through acquainting you with its concepts and components.
 
-It is definitely not necessary to involve in every app.
 The blog post lists use cases for Redux, features that Redux provides to the application developer, and the implementation limitations that Redux imposes.
 
 > However, if you’re just learning React, don’t make Redux your first choice.
@@ -50,7 +54,7 @@ Functional programming presents us with the challenge of having to think in new 
 
 # Functional Programming and the React Ecosystem (0:25, 10 min)
 
-You may hear developers talking about how functional programming is revolutionizing Javascript and wonder how this is so.
+You may hear developers talking about how functional programming is revolutionizing JavaScript and wonder how this is so.
 Let's revisit the concept of a pure function: given any input, a ***pure function*** will return the exact same output.
 It will also ***have no side effects***.
 This means that the **pure function** is *only concerned* with returning some output that is a function of its input.
@@ -168,7 +172,7 @@ Every time an action has been dispatched via the reducer, we want to update the 
 
 ## Actions
 
-An action is a garden-variety Javascript object that describes what kind of change is to take place, specifying what change to make to what data.
+An action is a garden-variety JavaScript object that describes what kind of change is to take place, specifying what change to make to what data.
 
 The minimum requirement for an action is that the action must have a type property that **is not** `undefined.`
 <details>
