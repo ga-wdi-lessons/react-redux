@@ -1,10 +1,11 @@
 # Intro to Redux
 
 ## Learning Objectives
+  - Identify when there might be a true need for redux
   - Use React-Redux to centralize and manage application-state
   - Explain the importance of unidirectional data-flow and immutability for Redux's event history
-  - Explain the role of the store
-  - Explain the roles of actions and the reducer, how this influences the architecture of a React app
+  - Explain the role of the store, reducers, and actions
+  - Describe how Redux influences the architecture of a React app
   - Describe application-state in terms of plain JavaScript objects `{}`
 
 # What is Redux? (0:05, 5 min)
@@ -41,7 +42,7 @@ The blog post lists use cases for Redux, features that Redux provides to the app
 > However, if you’re just learning React, don’t make Redux your first choice.
 Instead learn to [think in React](https://facebook.github.io/react/docs/thinking-in-react.html). Come back to Redux if you find a real need for it, or if you want to try something new. But approach it with caution, just like you do with any highly opinionated tool.
 
-For this lesson, we're throwing caution (or a regard for our own momentary sanity) to the wind. There is a formidable learning curve with Redux, but the exposure is valuable for a few reasons:
+For this lesson, we're throwing caution (or a regard for our own momentary sanity) to the wind. There is certainly a learning curve with Redux, but the exposure is valuable for a few reasons:
 
 1. It is being increasingly adopted by React developers, especially teams working on very large applications.
 
